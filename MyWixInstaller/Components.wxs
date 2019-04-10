@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+  <Fragment>
+    
+    <!-- Product Components -->
+    <ComponentGroup Id="ProductComponents">
+
+      <!-- Install Shortcut -->
+      <ComponentRef Id="MainAppShortcut" />
+
+      <!-- Registry -->
+      <ComponentRef Id="RegistryEntries" />
+      
+    </ComponentGroup>
+
+    <!-- Installed files -->
+    <DirectoryRef Id="INSTALLFOLDER" FileSource="..\MyWixApp\bin\Debug\netcoreapp2.0\win-$(var.Platform)\publish\">
+
+      <!-- Shortcut to main application -->
+      <Component Id="MainAppShortcut" Guid="{0995664D-AE63-4DD6-B894-708A99611370}">
+
+        <Shortcut Id="MainAppShortcut"
+                  Name="!(loc.ProductName_$(var.Platform))"
+                  Target="[INSTALLFOLDER]MyWixApp.exe"
+                  Directory="InstallProgramMenuFolder"
+                  WorkingDirectory="INSTALLFOLDER"
+                  Icon="icon.ico"
+                  />
+
+        <!-- Our unique key for this component/shortcut -->
+        <RegistryValue Id="RegShortcutKey" Root="HKCU" Key="SOFTWARE\$(loc.ProductNameFolder)" Name="Shortcut" Value="1" Type="integer" KeyPath="yes"/>
+        
+        <!--Remove start menu items -->
+        <RemoveFolder Id="RemoveStartMenu" Directory="InstallProgramMenuFolder" On="uninstall" />
+                
+      </Component>
+     
+      <!-- Registry entries for the main application--> 
+      <Component Id="RegistryEntries" Guid="{DE3C9A54-42F6-443C-BECF-36F055E48E98}">
+        <RegistryKey Root="HKCU"
+                     Key="SOFTWARE\$(loc.ProductNameFolder)"
+                     Action="createAndRemoveOnUninstall">
+          <RegistryValue Name="Path" Value="[INSTALLFOLDER]" Type="string" KeyPath="yes"/>
+          <RegistryValue Name="Version" Value="$(var.BuildVersion)" Type="string"/>
+        </RegistryKey>
+      </Component>
+      
+    </DirectoryRef>
+    
+  </Fragment>
+ 
+
+</Wix>

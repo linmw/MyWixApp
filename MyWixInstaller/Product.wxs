@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+  <!-- Give product a unique ID per platform -->
+  <?if $(var.Platform)=x64 ?>
+  <?define ProductCode = "{F10ACB0B-1319-43EA-A0E4-4C321A8633F9}" ?>
+  <?else?>
+  <?define ProductCode = "{2C6F9B98-1EA0-47A7-9FBF-CD09BBE3CE18}" ?>
+  <?endif?>
+
+  <!-- Fixed upgrade Id -->
+  <?define UpgradeCode = "{679550FE-EED7-4D6B-9A3E-1DAC418072CC}" ?>
+
+  <!-- Define main product -->
+  <Product Id="$(var.ProductCode)"
+           Name="!(loc.ProductName_$(var.Platform))"
+           Language="!(loc.Language)"
+           Version="$(var.BuildVersion)"
+           Manufacturer="!(loc.Company)"
+           UpgradeCode="$(var.UpgradeCode)">
+
+    <!-- Provide package details -->
+    <Package InstallerVersion="200"
+             Compressed="yes"
+             InstallScope="perMachine"
+             Platform="$(var.Platform)"
+             Manufacturer="!(loc.Company)"
+             Description="!(loc.Description)"
+             Keywords="!(loc.Keywords)"
+             Comments="!(loc.Comments)"
+             Languages="!(loc.Language)"
+             />
+
+    <Binary Id="myAction" SourceFile="..\MyWixCustomAction\bin\x64\Release\MyWixCustomAction.CA.dll" />
+
+    <!-- Downgrade error message -->
+    <MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeErrorMessage)" />
+
+    <!-- Include .cab file into .msi file -->
+    <MediaTemplate
+      EmbedCab="yes"
+      />
+
+    <!-- Define main app icon -->
+    <Icon Id="icon.ico" SourceFile="$(var.MyWixApp.ProjectDir)\app.ico" />
+
+    <!-- Use the icon.ico icon for this installer (shows up in Add/Remove programs) -->
+    <Property Id="ARPPRODUCTICON">icon.ico</Property>
+    <!-- Help/Support website (shows in the Add/Remove programs) -->
+    <Property Id="ARPURLINFOABOUT">http://www.angelsix.com</Property>
+
+    <!-- Required for using any form of InstallDir UI Dialog -->
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
+
+
+    <Property Id="CONFIGURE_HOSTDIALOG_SERVERIP" Value="127.0.0.1"></Property>
+    <Property Id="CONFIGURE_HOSTDIALOG_PORTNO" Value="7436"></Property>
+    <Property Id="CONFIGURE_HOSTDIALOG_SKIPPED" Value="False"></Property>
+
+    <!-- Create a basic UI for the installer -->
+    <UIRef Id="MyWixUI_InstallDir" />
+
+
+    <!-- Change the installer UI background images -->
+    <!--<WixVariable Id="WixUILicenseRtf" Value="$(var.ProjectDir)\Assets\License.rtf" />-->
+    <WixVariable Id="WixUIDialogBmp" Value="$(var.ProjectDir)\Assets\Background.bmp" />
+    <WixVariable Id="WixUIBannerBmp" Value="$(var.ProjectDir)\Assets\Banner.bmp" />
+
+    <!-- Define components, shortcuts, files etc... for installer -->
+    <Feature Id="ProductFeature" Title="MyWixApp" Level="1">
+
+      <ComponentGroupRef Id="ProductComponents" />
+      <ComponentGroupRef Id="PublishedComponents" />
+
+    </Feature>
+    
+
+     <!--My Custom Action-->
+    <CustomAction Id="myActionId"
+                  BinaryKey="myAction"
+                  DllEntry="ConfigureHostServer"
+                  Execute="deferred"
+                  Return="check" />
+
+     <!--Supply My Custom Action with input parameters ("Property" attribute) links this to the custom action above so should have matching value
+     Value attiribute has dynamic installer value of [Installlocation] and a hardcoded value of AnotherValue--> 
+    <CustomAction Id="SetCustomActionDataValue" 
+                  Return="check"
+                  Property="myActionId"                                     
+                  Value="SERVERIP=[CONFIGURE_HOSTDIALOG_SERVERIP];PORTNO=[CONFIGURE_HOSTDIALOG_PORTNO];SKIPPED=[CONFIGURE_HOSTDIALOG_SKIPPED]"/>
+
+                <!--Value="INSTALLLOCATION=[INSTALLFOLDER];AnotherValue='Just a value'" />-->
+
+      <!--Sequence of how the custom actions are executed-->
+    <InstallExecuteSequence>
+
+      <!--setup the input parameters custom action first before calling it's linked custom action method-->  
+      <Custom Action="SetCustomActionDataValue" Before="myActionId">NOT Installed</Custom>
+
+      <Custom Action="myActionId" Before="InstallFinalize">NOT Installed</Custom>
+    </InstallExecuteSequence>
+    
+
+
+  </Product>
+
+</Wix>

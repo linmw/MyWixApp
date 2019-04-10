@@ -1,0 +1,25 @@
+﻿Useful links:
+
+This project is based of this example:
+https://www.youtube.com/watch?v=6Yf-eDsRrnM 
+https://github.com/mbullock976/youtube look under the C# General sub folder for wix dotnet core example.
+
+Goot Beginner Tutorial too:
+https://www.youtube.com/watch?v=-wyUxQux7xY
+
+
+This file is for links to the Official Wix Toolset Documentation OR from other sources, that are useful or is used to source this project.
+Please add a comment detailing the links. Thank you.
+
+How To: Write a Registry Entry During Installation
+http://wixtoolset.org/documentation/manual/v3/howtos/files_and_registry/write_a_registry_entry.html
+
+Creating Custom Action for WIX Written in Managed C# Code 
+https://www.codeproject.com/Articles/132918/Creating-Custom-Action-for-WIX-Written-in-Managed
+
+Wix: Edit Control not setting property - Answer is Ensure all public properties are ALL UPPERCASE. Example is this property CONFIGURE_HOSTDIALOG_SERVERIP.
+Must be public for the product.wxs to see it and override with new value from dialog, otherwise lowercase are treated as private properties, and defaults are used - overrides are ignored..
+https://stackoverflow.com/questions/8440165/wix-edit-control-not-setting-property
+
+Example of how to Make a Custom Setup Dialog using Wix 3.0 - The Configure Host dialog in this project is a working example based of this illustration !
+http://geekswithblogs.net/JanS/archive/2008/12/09/making-a-custom-setup-dialog-using-wix-3.0.aspx
