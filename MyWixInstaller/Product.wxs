@@ -71,6 +71,7 @@
 
       <ComponentGroupRef Id="ProductComponents" />
       <ComponentGroupRef Id="PublishedComponents" />
+      <ComponentGroupRef Id="ComponentGroupDesktopShortcut" />
 
     </Feature>
     

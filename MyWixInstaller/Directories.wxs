@@ -21,6 +21,8 @@
           <Directory Id="INSTALLFOLDER" Name="!(loc.ProductNameFolder)" />
         </Directory>
       <?endif?>
+
+      <Directory Id="DesktopFolder" Name="DesktopFolder" />
             
     </Directory>
     

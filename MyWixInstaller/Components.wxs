@@ -9,9 +9,19 @@
       <!-- Install Shortcut -->
       <ComponentRef Id="MainAppShortcut" />
 
+      <!-- Install Shortcut -->
+      <ComponentRef Id="MainAppDesktopShortcut" />
+
       <!-- Registry -->
       <ComponentRef Id="RegistryEntries" />
       
+    </ComponentGroup>
+
+    <ComponentGroup Id="ComponentGroupDesktopShortcut">
+
+      <!-- Desktop Shortcut -->
+      <ComponentRef Id="MainAppDesktopShortcut" />
+
     </ComponentGroup>
 
     <!-- Installed files -->
@@ -34,7 +44,7 @@
         <!--Remove start menu items -->
         <RemoveFolder Id="RemoveStartMenu" Directory="InstallProgramMenuFolder" On="uninstall" />
                 
-      </Component>
+      </Component>      
      
       <!-- Registry entries for the main application--> 
       <Component Id="RegistryEntries" Guid="{DE3C9A54-42F6-443C-BECF-36F055E48E98}">
@@ -47,7 +57,24 @@
       </Component>
       
     </DirectoryRef>
+
+    <!--Desktop Shortcut-->
+    <Component Id="MainAppDesktopShortcut" Guid="{E5C8BD1A-21DA-4896-A2CA-1AEBEC4AC2E6}" Directory="DesktopFolder" >
+        <Shortcut Id="MainAppDesktopShortcut"
+                  Name="!(loc.ProductName_$(var.Platform))"
+                  Directory="DesktopFolder"
+                  Target="[INSTALLFOLDER]MyWixApp.exe"
+                  WorkingDirectory="INSTALLFOLDER"
+                  Icon="icon.ico"/>
+      
+        <!-- Our unique key for this component/shortcut -->
+        <RegistryValue Id="RegDesktopShortcutKey" Root="HKCU" Key="SOFTWARE\$(loc.ProductNameFolder)" Name="DesktopShortcut" Value="1" Type="integer" KeyPath="yes"/>
+
+        <!--Remove desktop shortcut on uninstall-->
+        <RemoveFolder Id="DesktopFolder" On="uninstall"/>
+    </Component>
     
+
   </Fragment>
  
 
