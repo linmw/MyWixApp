@@ -32,7 +32,7 @@
 
         <Shortcut Id="MainAppShortcut"
                   Name="!(loc.ProductName_$(var.Platform))"
-                  Target="[INSTALLFOLDER]MyWixApp.exe"
+                  Target="[INSTALLFOLDER]NEC.Identity.NeoFace.LiveViewWallboardV5.exe"
                   Directory="InstallProgramMenuFolder"
                   WorkingDirectory="INSTALLFOLDER"
                   Icon="icon.ico"
@@ -63,7 +63,7 @@
         <Shortcut Id="MainAppDesktopShortcut"
                   Name="!(loc.ProductName_$(var.Platform))"
                   Directory="DesktopFolder"
-                  Target="[INSTALLFOLDER]MyWixApp.exe"
+                  Target="[INSTALLFOLDER]NEC.Identity.NeoFace.LiveViewWallboardV5.exe"
                   WorkingDirectory="INSTALLFOLDER"
                   Icon="icon.ico"/>
       

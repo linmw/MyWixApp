@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Drawing;
+using System.Security.Cryptography;
+using Dependency;
 
 namespace MyWixApp
 {
@@ -6,7 +9,9 @@ namespace MyWixApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var dependency = new MyDependency();
+            dependency.Name = "Hello World";
+            Console.WriteLine(dependency.Name);
             Console.ReadLine();
         }
     }

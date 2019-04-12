@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:bal="http://schemas.microsoft.com/wix/BalExtension" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension" xmlns:netfx='http://schemas.microsoft.com/wix/NetFxExtension'>
 
-  <!-- Give product a unique ID per platform -->
+  <!-- Give product a unique ID per platform 1.3.0-->
   <?if $(var.Platform)=x64 ?>
   <?define ProductCode = "{F10ACB0B-1319-43EA-A0E4-4C321A8633F9}" ?>
   <?else?>
   <?define ProductCode = "{2C6F9B98-1EA0-47A7-9FBF-CD09BBE3CE18}" ?>
   <?endif?>
 
-  <!-- Fixed upgrade Id -->
+  <!-- Fixed upgrade Id - CHANGING THIS WILL IGNORE PREVIOUS INSTALL VERSIONS - WE SHOULD NOT CHANGE THIS -->
   <?define UpgradeCode = "{679550FE-EED7-4D6B-9A3E-1DAC418072CC}" ?>
 
   <!-- Define main product -->
@@ -41,13 +41,19 @@
       EmbedCab="yes"
       />
 
+    <PropertyRef Id="NETFRAMEWORK45" />
+    <Condition Message="Requires .NET Framework 4.7.1 or later to be installed">
+      <![CDATA[Installed OR (NETFRAMEWORK45 AND NETFRAMEWORK45 >= "#461310")]]>
+    </Condition>
+
+
     <!-- Define main app icon -->
-    <Icon Id="icon.ico" SourceFile="$(var.MyWixApp.ProjectDir)\app.ico" />
+    <Icon Id="icon.ico" SourceFile="app.ico" />
 
     <!-- Use the icon.ico icon for this installer (shows up in Add/Remove programs) -->
     <Property Id="ARPPRODUCTICON">icon.ico</Property>
     <!-- Help/Support website (shows in the Add/Remove programs) -->
-    <Property Id="ARPURLINFOABOUT">http://www.angelsix.com</Property>
+    <Property Id="ARPURLINFOABOUT">http://www.mycompany.com</Property>
 
     <!-- Required for using any form of InstallDir UI Dialog -->
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
@@ -58,7 +64,7 @@
     <Property Id="CONFIGURE_HOSTDIALOG_SKIPPED" Value="False"></Property>
 
     <!-- Create a basic UI for the installer -->
-    <UIRef Id="MyWixUI_InstallDir" />
+    <UIRef Id="CustomDialogWorkflow" />
 
 
     <!-- Change the installer UI background images -->
@@ -90,7 +96,6 @@
                   Property="myActionId"                                     
                   Value="SERVERIP=[CONFIGURE_HOSTDIALOG_SERVERIP];PORTNO=[CONFIGURE_HOSTDIALOG_PORTNO];SKIPPED=[CONFIGURE_HOSTDIALOG_SKIPPED]"/>
 
-                <!--Value="INSTALLLOCATION=[INSTALLFOLDER];AnotherValue='Just a value'" />-->
 
       <!--Sequence of how the custom actions are executed-->
     <InstallExecuteSequence>

@@ -30,7 +30,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Bundle.wxs" />
-    <Compile Include="Net47Installer.wxs" />
+    <Compile Include="Net471Installer.wxs" />
   </ItemGroup>
   <ItemGroup>
     <WixExtension Include="WixUtilExtension">
@@ -58,12 +58,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Themes" />
-    <Folder Include="Redist" />
-    <Folder Include="Redist\NETFX47" />
     <Folder Include="Resources" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Redist\NETFX47\NDP47-KB3186497-x86-x64-AllOS-ENU.exe" />
+    <Content Include="NDP471-KB4033342-x86-x64-AllOS-ENU.exe" />
     <Content Include="Resources\app.ico" />
     <Content Include="Themes\HyperlinkTheme.xml" />
   </ItemGroup>

@@ -27,15 +27,61 @@
   <Fragment>
     <util:RegistrySearchRef Id="NETFRAMEWORK45"/>
 
+    <WixVariable Id="WixMbaPrereqPackageId" Value="NetFx47Web" />
+    <WixVariable Id="WixMbaPrereqLicenseUrl" Value="$(var.NetFx47EulaLink)" Overridable="yes" />
+    <WixVariable Id="NetFx47WebDetectCondition" Value="NETFRAMEWORK45 &gt;= $(var.NetFx47MinRelease)" Overridable="yes" />
+    <WixVariable Id="NetFx47WebInstallCondition" Value="NETFRAMEWORK45 &lt;= $(var.NetFx47MinRelease)" Overridable="yes" />
+    <WixVariable Id="NetFx47WebPackageDirectory" Value="redist\" Overridable="yes" />
+
+    
+
+    <PackageGroup Id="NetFx47Web">
+      <ExePackage
+          InstallCommand="/q /norestart /ChainingPackage &quot;[WixBundleName]&quot; /log &quot;[NetFx47FullLog].html&quot;"
+          RepairCommand="/q /norestart /repair /ChainingPackage &quot;[WixBundleName]&quot; /log &quot;[NetFx47FullLog].html&quot;"
+          UninstallCommand="/uninstall /q /norestart /ChainingPackage &quot;[WixBundleName]&quot; /log &quot;[NetFx47FullLog].html&quot;"
+          PerMachine="yes"
+          DetectCondition="!(wix.NetFx47WebDetectCondition)"     
+          InstallCondition="!(wix.NetFx47WebInstallCondition)"
+          Id="NetFx47Web"
+          Vital="yes"
+          Permanent="yes"
+          Protocol="netfx4"
+          DownloadUrl="$(var.NetFx47WebLink)"
+          LogPathVariable="NetFx47FullLog"
+          Compressed="no"
+          Name="!(wix.NetFx47WebPackageDirectory)NDP47-KB3186500-Web.exe">
+        <RemotePayload
+          CertificatePublicKey="371DD003A37769487A2A89A5A9DDB3026451B906"
+          CertificateThumbprint="98ED99A67886D020C564923B7DF25E9AC019DF26"
+          Description="Microsoft .NET Framework 4.7 Setup"
+          Hash="B3A24DEB7A8D937FC0B5591CDCC2725BF4E1BDEA"
+          ProductName="Microsoft .NET Framework 4.7"
+          Size="1426720"
+          Version="4.7.2053.0" />
+      </ExePackage>
+    </PackageGroup>
+  </Fragment>
+
+  <Fragment>
+    <util:RegistrySearchRef Id="NETFRAMEWORK45"/>
+
+    <util:RegistrySearch Root="HKLM"
+                         Key="SOFTWARE\Microsoft\Net Framework Setup\NDP\v4\Full"
+                         Value="Release"
+                         Variable="NETFRAMEWORK45"
+                         Win64="yes" />
+
+
     <WixVariable Id="WixMbaPrereqPackageId" Value="NetFx47Redist" />
     <WixVariable Id="WixMbaPrereqLicenseUrl" Value="$(var.NetFx47EulaLink)" Overridable="yes" />
     <WixVariable Id="NetFx47RedistDetectCondition" Value="NETFRAMEWORK45 &gt;= $(var.NetFx47MinRelease)" Overridable="yes" />
-    <WixVariable Id="NetFx47RedistInstallCondition" Value="" Overridable="yes" />
+    <WixVariable Id="NetFx47RedistInstallCondition" Value="NETFRAMEWORK45 &lt;= $(var.NetFx47MinRelease)" Overridable="yes" />
     <WixVariable Id="NetFx47RedistPackageDirectory" Value="redist\" Overridable="yes" />
 
+    
     <PackageGroup Id="NetFx47Redist">
       <ExePackage
-          DisplayName="Microsoft .NET Framework 4.7"
           InstallCommand="/q /norestart /ChainingPackage &quot;[WixBundleName]&quot; /log &quot;[NetFx47FullLog].html&quot;"
           RepairCommand="/q /norestart /repair /ChainingPackage &quot;[WixBundleName]&quot; /log &quot;[NetFx47FullLog].html&quot;"
           UninstallCommand="/uninstall /q /norestart /ChainingPackage &quot;[WixBundleName]&quot; /log &quot;[NetFx47FullLog].html&quot;"
@@ -48,9 +94,9 @@
           Protocol="netfx4"
           DownloadUrl="$(var.NetFx47RedistLink)"
           LogPathVariable="NetFx47FullLog"
-          Compressed="no"
-          SourceFile="Redist\NETFX47\NDP47-KB3186497-x86-x64-AllOS-ENU.exe"
-          Name="!(wix.NetFx47RedistPackageDirectory)NDP47-KB3186497-x86-x64-AllOS-ENU.exe">
+          Compressed="yes"
+          SourceFile="NDP47-KB3186497-x86-x64-AllOS-ENU.exe"/>
+        <!--Name="!(wix.NetFx47RedistPackageDirectory)NDP47-KB3186497-x86-x64-AllOS-ENU.exe">-->
         <!--<RemotePayload
           CertificatePublicKey="371DD003A37769487A2A89A5A9DDB3026451B906"
           CertificateThumbprint="98ED99A67886D020C564923B7DF25E9AC019DF26"
@@ -59,7 +105,7 @@
           ProductName="Microsoft .NET Framework 4.7"
           Size="61586744"
           Version="4.7.2053.0" />-->
-      </ExePackage>
+      
     </PackageGroup>
   </Fragment>
 </Wix>

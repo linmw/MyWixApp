@@ -6,4 +6,8 @@
     <AssemblyVersion>1.3.0.0</AssemblyVersion>    
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Dependency\Dependency.csproj" />
+  </ItemGroup>
+
 </Project>

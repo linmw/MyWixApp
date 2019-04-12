@@ -23,3 +23,10 @@ https://stackoverflow.com/questions/8440165/wix-edit-control-not-setting-propert
 
 Example of how to Make a Custom Setup Dialog using Wix 3.0 - The Configure Host dialog in this project is a working example based of this illustration !
 http://geekswithblogs.net/JanS/archive/2008/12/09/making-a-custom-setup-dialog-using-wix-3.0.aspx
+
+
+Information for how to determine .NET 4.7 and 4.7.1 installation
+https://github.com/wixtoolset/issues/issues/5575
+ 
+Information on the NET Framework versions
+https://docs.microsoft.com/en-us/dotnet/framework/migration-guide/how-to-determine-which-versions-are-installed
