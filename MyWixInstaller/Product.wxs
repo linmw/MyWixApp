@@ -11,9 +11,11 @@
   <!-- Fixed upgrade Id - CHANGING THIS WILL IGNORE PREVIOUS INSTALL VERSIONS - WE SHOULD NOT CHANGE THIS -->
   <?define UpgradeCode = "{679550FE-EED7-4D6B-9A3E-1DAC418072CC}" ?>
 
+  
+  <!--Name="!(loc.ProductName_$(var.Platform))"-->
   <!-- Define main product -->
   <Product Id="$(var.ProductCode)"
-           Name="!(loc.ProductName_$(var.Platform))"
+           Name="LiveView Wallboard"
            Language="!(loc.Language)"
            Version="$(var.BuildVersion)"
            Manufacturer="!(loc.Company)"
@@ -31,7 +33,7 @@
              Languages="!(loc.Language)"
              />
 
-    <Binary Id="myAction" SourceFile="..\MyWixCustomAction\bin\x64\Release\MyWixCustomAction.CA.dll" />
+    <Binary Id="myAction" SourceFile="..\MyWixApp.CustomAction\bin\x64\Release\MyWixApp.CustomAction.CA.dll" />
 
     <!-- Downgrade error message -->
     <MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeErrorMessage)" />

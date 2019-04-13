@@ -4,7 +4,7 @@
 
     <UI Id="CustomDialogs">
 
-      <Dialog Id="ConfigureHostDlg" Width="370" Height="270" Title="Configure Host">
+      <Dialog Id="ConfigureHostDlg" Width="370" Height="270" Title="LiveView Wallboard Setup - Configure Host">
 
         <Control Id="Skip" Type="PushButton" X="110" Y="243" Width="56" Height="17" Default="yes" Text="Skip" Property="CONFIGURE_HOSTDIALOG_SKIPPED">
           <Publish Event="Reset" Value="1">1</Publish>

@@ -5,10 +5,10 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("MyWixCustomAction")]
+[assembly: AssemblyTitle("MyWixApp.CustomAction")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("MyWixApp")]
+[assembly: AssemblyProduct("MyWixApp.CustomAction")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("bb7d59ce-0f38-4842-90a2-da10bceba24d")]
+[assembly: Guid("3eb9ed81-7e33-4c38-a3af-3a636994d722")]
 
 // Version information for an assembly consists of the following four values:
 //

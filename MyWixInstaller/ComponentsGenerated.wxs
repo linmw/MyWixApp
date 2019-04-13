@@ -2,10 +2,10 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
     <Fragment>
         <DirectoryRef Id="INSTALLFOLDER">
-            <Component Id="cmp4823879ED533810920D1E2C3004754E6" Guid="{6D7920AF-F892-4541-A856-82EF1FC1F713}">
+            <Component Id="cmp4823879ED533810920D1E2C3004754E6" Guid="{35376470-021E-4CD9-B63E-F189881298CE}">
                 <File Id="fil1E78DEA4F197C6A35271D9C4C130F874" KeyPath="yes" Source="$(var.BasePath)\NEC.Identity.NeoFace.LiveViewWallboardV5.exe" />
             </Component>
-            <Component Id="cmpD02344225F2EE90A9ACC4B984F9314D4" Guid="{A3FD520E-A188-4931-828E-CA413A2FB5A4}">
+            <Component Id="cmpD02344225F2EE90A9ACC4B984F9314D4" Guid="{68D8270C-599F-44B0-AED2-EEFB6327FDD9}">
                 <File Id="filE3C04906208646578E82ECF0419A2949" KeyPath="yes" Source="$(var.BasePath)\NEC.Identity.NeoFace.LiveViewWallboardV5.exe.config" />
             </Component>
         </DirectoryRef>
